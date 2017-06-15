@@ -1,4 +1,5 @@
-﻿using Mnist.Constants;
+﻿using Mnist.Activation;
+using Mnist.Constants;
 using Mnist.Models;
 using Python.Runtime;
 using System;
@@ -13,9 +14,16 @@ namespace Mnist
     {
         static void Main(string[] args)
         {
-            TrainUsingMlpNetwork();
-            TrainUsingCnnNetwork();
-            
+            using(var py = Py.GIL())
+            {
+                PythonEngine.Exec(RedirectOutput());
+                var rmsProp = new RmsProp();
+                rmsProp.Create();
+
+            }
+            //TrainUsingMlpNetwork();
+            //TrainUsingCnnNetwork();
+
         }
 
         public static string RedirectOutput()
@@ -44,7 +52,13 @@ namespace Mnist
                 var mnistDatasetForMlp = data.GetMnistDataSet();
 
                 PyTuple inputShape = new PyTuple(new PyObject[] { new PyInt(vectorLength) });
-                var modelDefinition = new MnistMlpNetwokConfiguration().AddDense(512, KerasConstants.ActivationFunction.Relu, inputShape).AddDropout(0.2).AddDense(512, KerasConstants.ActivationFunction.Relu).AddDropout(0.2).AddDense(10, KerasConstants.ActivationFunction.Softmax).Build();
+                var modelDefinition = new MnistMlpNetwokConfiguration()
+                    .AddDense(512, KerasConstants.ActivationFunction.Relu, inputShape)
+                    .AddDropout(0.2)
+                    .AddDense(512, KerasConstants.ActivationFunction.Relu)
+                    .AddDropout(0.2)
+                    .AddDense(10, KerasConstants.ActivationFunction.Softmax)
+                    .Build();
 
                 var executionConfiguration = new KerasExecutionConfiguration<MnistDatasetMlp>();
                 executionConfiguration.ModelDefinition = modelDefinition;
@@ -99,6 +113,6 @@ namespace Mnist
                 mnistExecution.Fit();
                 mnistExecution.Evaluate();
             }
-        }
+        }        
     }
 }

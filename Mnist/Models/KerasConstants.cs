@@ -21,6 +21,14 @@ namespace Mnist.Constants
             public const string RmsProp = "RMSprop";
         }
 
+        public static class ActivationFunctionParameters
+        {
+            public const string LearningRatio = "lr";
+            public const string Rho = "rho";
+            public const string Epsilon = "epsilon";
+            public const string Decay = "decay";
+        }
+
         public static class Metrics
         {
             public const string Accuracy = "accuracy";

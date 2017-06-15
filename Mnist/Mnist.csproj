@@ -87,7 +87,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Constants\KerasConstants.cs" />
+    <Compile Include="Activation\RmsProp.cs" />
+    <Compile Include="Models\KerasConstants.cs" />
     <Compile Include="MnistCnnExecution.cs" />
     <Compile Include="MnistCnnNetworkConfiguration.cs" />
     <Compile Include="MnistDataSet.cs" />
@@ -104,6 +105,9 @@
   <ItemGroup>
     <Content Include="main.py" />
     <Content Include="mnist.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Constants\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

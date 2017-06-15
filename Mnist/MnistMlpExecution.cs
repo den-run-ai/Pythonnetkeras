@@ -2,10 +2,6 @@
 using Mnist.Models;
 using Python.Runtime;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static Python.Runtime.Py;
 
 namespace Mnist
@@ -27,7 +23,7 @@ namespace Mnist
         {
             this.configuration = configuration;
             ConfigureModules();
-            this.model.compile(Py.kw(KerasConstants.Compile.Loss, configuration.LossFunction, KerasConstants.Compile.Loss, configuration.OptimizationFunction, KerasConstants.Compile.Metrics, configuration.Metrics));
+            this.model.compile(Py.kw(KerasConstants.Compile.Loss, configuration.LossFunction, KerasConstants.Compile.Optimizer, configuration.OptimizationFunction, KerasConstants.Compile.Metrics, configuration.Metrics));
         }
 
         public void Fit()
